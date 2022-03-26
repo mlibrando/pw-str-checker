@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/pw-str-checker/static/css/main.5a888d15.css",
+    "main.js": "/pw-str-checker/static/js/main.71dec380.js",
+    "index.html": "/pw-str-checker/index.html",
+    "main.5a888d15.css.map": "/pw-str-checker/static/css/main.5a888d15.css.map",
+    "main.71dec380.js.map": "/pw-str-checker/static/js/main.71dec380.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.5a888d15.css",
+    "static/js/main.71dec380.js"
+  ]
+}
