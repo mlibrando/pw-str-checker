@@ -3,6 +3,7 @@ import React, {
   useState, useRef, useMemo, useEffect,
 } from 'react';
 import {
+  CircularProgress,
   IconButton,
   InputAdornment,
   LinearProgress,
@@ -31,12 +32,14 @@ function StrengthChecker() {
     showPassword: false,
   });
   const [initState, setInitState] = useState(true);
+  const [isProcessing, setIsProcessing] = useState(false);
   const updatedValue = useRef('');
   const isPasswordValueValid = () => !_.isEmpty(updatedValue.current);
 
   useEffect(() => {
     if (!isPasswordValueValid()) {
       setInitState(true);
+      setIsProcessing(false);
     }
   }, [values.password]);
 
@@ -46,8 +49,10 @@ function StrengthChecker() {
     const data = {
       password: updatedValue.current,
     };
+    setIsProcessing(true);
     if (isPasswordValueValid()) {
       await dispatch(checkPassword(data));
+      setIsProcessing(false);
     }
     setInitState(false);
   };
@@ -127,6 +132,39 @@ function StrengthChecker() {
     return suggestions;
   };
 
+  const renderPWStrings = () => {
+    let ret = '';
+    if (!isProcessing) {
+      ret = (
+        <div>
+          {renderStrengthMeter()}
+          <div className="text-center">
+            <Typography variant="h5">
+              {renderPWStrengthPhrase()}
+            </Typography>
+          </div>
+          <div className="text-center">
+            <Typography>
+              {renderGuessTimeAndWarnings()}
+            </Typography>
+          </div>
+          <div className="text-center mt-4">
+            <Typography variant="h6">
+              {renderSuggestions()}
+            </Typography>
+          </div>
+        </div>
+      );
+    } else {
+      ret = (
+        <div className="flex justify-center mt-4">
+          <CircularProgress />
+        </div>
+      );
+    }
+    return ret;
+  };
+
   return (
     <div>
       <Paper elevation={3} className="p-4">
@@ -161,22 +199,7 @@ function StrengthChecker() {
             }}
           />
         </div>
-        {renderStrengthMeter()}
-        <div className="text-center">
-          <Typography variant="h5">
-            {renderPWStrengthPhrase()}
-          </Typography>
-        </div>
-        <div className="text-center">
-          <Typography>
-            {renderGuessTimeAndWarnings()}
-          </Typography>
-        </div>
-        <div className="text-center mt-4">
-          <Typography variant="h6">
-            {renderSuggestions()}
-          </Typography>
-        </div>
+        {renderPWStrings()}
       </Paper>
     </div>
   );
