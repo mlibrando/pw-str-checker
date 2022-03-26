@@ -1,0 +1,19 @@
+.MuiLinearProgress-root {
+    background-color: grey !important;
+}
+
+#str-meter-25 .MuiLinearProgress-bar {
+    background-color: red !important;
+}
+
+#str-meter-50 .MuiLinearProgress-bar {
+    background-color: yellow !important;
+}
+
+#str-meter-75 .MuiLinearProgress-bar {
+    background-color: blue !important;
+}
+
+#str-meter-100 .MuiLinearProgress-bar {
+    background-color: green !important;
+}
